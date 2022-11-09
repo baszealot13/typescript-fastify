@@ -11,6 +11,11 @@ interface IQueryInterface {
 }
 
 interface HookBody {
+  destination: string;
+  events: HookEvent[]
+}
+
+interface HookEvent {
   type: string;
   message: any;
   webhookEventId: string;
@@ -41,14 +46,15 @@ app.get<{ Querystring: IQueryInterface, Headers: IHeaders, Reply: IReply }>('/',
     }
   })
 });
-app.post('/webhook', async (request, reply) => {
-  // const { type, message, deliveryContext, replyToken } = request.body;
+app.post<{ Body: HookBody }>('/webhook', async (request, reply) => {
+  const { type, message, deliveryContext, replyToken } = request.body.events[0];
 
-  // console.log('type: ', type);
-  // console.log('message: ', message);
-  // console.log('deliveryContext: ', deliveryContext);
-  // console.log('replyToken: ', replyToken);
   console.log(request.body);
+
+  console.log('type: ', type);
+  console.log('message: ', message);
+  console.log('deliveryContext: ', deliveryContext);
+  console.log('replyToken: ', replyToken);
 
   return 'Hello world'
 });
