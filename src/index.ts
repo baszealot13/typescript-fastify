@@ -32,7 +32,7 @@ app.get<{ Querystring: IQueryInterface, Headers: IHeaders, Reply: IReply }>('/',
   })
 });
 app.post('/webhook', async (request, reply) => {
-  console.log({request});
+  console.log('body ', request.body);
 
   return 'Hello world'
 });
