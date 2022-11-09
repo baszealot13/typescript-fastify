@@ -41,13 +41,14 @@ app.get<{ Querystring: IQueryInterface, Headers: IHeaders, Reply: IReply }>('/',
     }
   })
 });
-app.post<{ Body: HookBody }>('/webhook', async (request, reply) => {
-  const { type, message, deliveryContext, replyToken } = request.body;
+app.post('/webhook', async (request, reply) => {
+  // const { type, message, deliveryContext, replyToken } = request.body;
 
-  console.log('type: ', type);
-  console.log('message: ', message);
-  console.log('deliveryContext: ', deliveryContext);
-  console.log('replyToken: ', replyToken);
+  // console.log('type: ', type);
+  // console.log('message: ', message);
+  // console.log('deliveryContext: ', deliveryContext);
+  // console.log('replyToken: ', replyToken);
+  console.log(request.body);
 
   return 'Hello world'
 });
