@@ -30,7 +30,12 @@ app.get<{ Querystring: IQueryInterface, Headers: IHeaders, Reply: IReply }>('/',
       password
     }
   })
-})
+});
+app.get('/webhook', async (request, reply) => {
+  console.log({request});
+
+  return 'Hello world'
+});
 
 app.register(routeItems);
 
