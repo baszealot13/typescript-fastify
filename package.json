@@ -1,0 +1,23 @@
+{
+  "name": "typescript-fastify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "tsc -w & node dist/index.js",
+    "dev": "tsc -w & nodemon dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^4.9.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.8",
+    "nodemon": "^2.0.20",
+    "typescript": "^4.8.4"
+  }
+}
