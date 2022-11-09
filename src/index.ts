@@ -10,6 +10,16 @@ interface IQueryInterface {
   password: string;
 }
 
+interface HookBody {
+  type: string;
+  message: any;
+  webhookEventId: string;
+  deliveryContext: any;
+  timestamp: number;
+  source: any;
+  replyToken: string;
+}
+
 interface IHeaders {
   'x-access-token': string;
 }
@@ -31,8 +41,13 @@ app.get<{ Querystring: IQueryInterface, Headers: IHeaders, Reply: IReply }>('/',
     }
   })
 });
-app.post('/webhook', async (request, reply) => {
-  console.log('body ', request.body);
+app.post<{ Body: HookBody }>('/webhook', async (request, reply) => {
+  const { type, message, deliveryContext, replyToken } = request.body;
+
+  console.log('type: ', type);
+  console.log('message: ', message);
+  console.log('deliveryContext: ', deliveryContext);
+  console.log('replyToken: ', replyToken);
 
   return 'Hello world'
 });
