@@ -17,6 +17,10 @@ app.get('/', async (request, reply) => {
         }
     });
 });
+app.get('/webhook', async (request, reply) => {
+    console.log({ request });
+    return 'Hello world';
+});
 app.register(items_1.default);
 app.listen({ port: 3000 }, (err, address) => {
     if (err) {

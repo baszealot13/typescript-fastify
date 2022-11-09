@@ -31,7 +31,7 @@ app.get<{ Querystring: IQueryInterface, Headers: IHeaders, Reply: IReply }>('/',
     }
   })
 });
-app.get('/webhook', async (request, reply) => {
+app.post('/webhook', async (request, reply) => {
   console.log({request});
 
   return 'Hello world'
