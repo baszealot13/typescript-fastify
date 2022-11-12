@@ -1,5 +1,8 @@
 import fastify, { FastifyInstance } from "fastify";
 import routeItems from './routes/items';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app: FastifyInstance = fastify(
   { logger: true }
@@ -34,17 +37,8 @@ interface IReply {
   message: string;
   body: any;
 }
-app.get<{ Querystring: IQueryInterface, Headers: IHeaders, Reply: IReply }>('/', async (request, reply) =>  {
-  const { username, password }  = request.query;
-  
-  return reply.send({
-    code: 200,
-    message: 'success',
-    body: {
-      username,
-      password
-    }
-  })
+app.get('/', async (request, reply) =>  {
+  return "Hello world";
 });
 app.post<{ Body: HookBody }>('/webhook', async (request, reply) => {
   const { type, message, deliveryContext, replyToken } = request.body.events[0];
@@ -56,12 +50,40 @@ app.post<{ Body: HookBody }>('/webhook', async (request, reply) => {
   console.log('deliveryContext: ', deliveryContext);
   console.log('replyToken: ', replyToken);
 
+  /*  
+  If message type is image
+  type:  message
+  message:  {
+    type: 'image',
+    id: '17099755271349',
+    contentProvider: { type: 'line' }
+  }
+  */
+  /* 
+  // How to get content with messageId
+  const line = require('@line/bot-sdk');
+
+  const client = new line.Client({
+    channelAccessToken: '<channel access token>'
+  });
+
+  client.getMessageContent('<messageId>')
+    .then((stream) => {
+      stream.on('data', (chunk) => {
+        ...
+      });
+      stream.on('error', (err) => {
+        // error handling
+      });
+    });
+  */
+
   return 'Hello world'
 });
 
 app.register(routeItems);
 
-app.listen({port: 3000}, (err, address) => {
+app.listen({host: '0.0.0.0', port: Number(process.env.PORT) }, (err, address) => {
   if (err) {
     app.log.error(err);
     process.exit(1);
