@@ -2,11 +2,12 @@ version: '3.8'
 services:
   backend:
     container_name: main_api_service
-    build: .
+    build: ./
     ports:
       - "3030:3030"
     volumes:
       - .:/api/
       - /api/node_modules
+      - /api/dist
     environment:
       NODE_ENV: development
